@@ -4,7 +4,6 @@ using System.Windows;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Collections;
-using System.Reflection;
 using SharePointLogViewer.Searching;
 
 // SortableListView, from the following blog post:

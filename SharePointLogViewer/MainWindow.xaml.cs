@@ -9,7 +9,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Diagnostics;
 using SharePointLogViewer.Controls.AutoCompleteTextBox;
-using System.Collections;
 using System.Collections.Generic;
 using SharePointLogViewer.Searching;
 using SharePointLogViewer.Monitoring;

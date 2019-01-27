@@ -14,8 +14,8 @@ namespace SharePointLogViewer.Notifiers
             notifier = new System.Windows.Forms.NotifyIcon();
             using (Stream iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,/Images/SPLV.ico")).Stream)
                 notifier.Icon = new System.Drawing.Icon(iconStream);
-            notifier.Click += new EventHandler(notifyIcon_Click);
-            notifier.BalloonTipClicked += new EventHandler(notifyIcon_Click);
+            notifier.Click += notifyIcon_Click;
+            notifier.BalloonTipClicked += notifyIcon_Click;
         }
 
         public void Notify(LogEntryViewModel logEntry)

@@ -22,10 +22,10 @@ namespace SharePointLogViewer.Searching
         static Predicate<object> CreatePredicate<T>(string propertyName, string searchText)
         {
             if (searchText == null)
-                searchText = String.Empty;
+                searchText = string.Empty;
 
             Predicate<object> predicate;
-            if (searchText == String.Empty)
+            if (searchText == string.Empty)
                 predicate = _ => true;
             else
             {
@@ -51,7 +51,7 @@ namespace SharePointLogViewer.Searching
         static Predicate<object> CreatePredicate(PropertyInfo property, params string[] keywords)
         {
             var comparer = new PropertyValueComparer(property, keywords);
-            return new Predicate<object>(comparer.IsMatch);
+            return comparer.IsMatch;
         }
 
         #region Predicate

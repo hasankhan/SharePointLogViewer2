@@ -22,7 +22,7 @@ namespace SharePointLogViewer.Monitoring
             watcher.Path = folderPath;
             watcher.Filter = Filter;
             watcher.NotifyFilter = NotifyFilters.FileName;
-            watcher.Created += new FileSystemEventHandler(watcher_Created);
+            watcher.Created += watcher_Created;
         }
 
         public void Start()

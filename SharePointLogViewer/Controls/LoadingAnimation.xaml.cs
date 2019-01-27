@@ -9,12 +9,12 @@ namespace SharePointLogViewer.Controls
     /// </summary>
     public partial class LoadingAnimation : UserControl
     {
-        public static readonly DependencyProperty MessageProperty = DependencyProperty.Register("Message", typeof(String), typeof(LoadingAnimation), new PropertyMetadata("Loading..."));
+        public static readonly DependencyProperty MessageProperty = DependencyProperty.Register("Message", typeof(string), typeof(LoadingAnimation), new PropertyMetadata("Loading..."));
 
         public string Message
         {
-            get { return (string)GetValue(MessageProperty); }
-            set { SetValue(MessageProperty, value); }
+            get => (string)GetValue(MessageProperty);
+            set => SetValue(MessageProperty, value);
         }
 
         public LoadingAnimation()

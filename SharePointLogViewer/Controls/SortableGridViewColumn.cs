@@ -13,8 +13,8 @@ namespace SharePointLogViewer.Controls
 
         public string SortPropertyName
         {
-            get { return (string)GetValue(SortPropertyNameProperty); }
-            set { SetValue(SortPropertyNameProperty, value); }
+            get => (string)GetValue(SortPropertyNameProperty);
+            set => SetValue(SortPropertyNameProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for SortPropertyName.  This enables animation, styling, binding, etc...
@@ -23,8 +23,8 @@ namespace SharePointLogViewer.Controls
         
         public bool IsDefaultSortColumn
         {
-            get { return (bool)GetValue(IsDefaultSortColumnProperty); }
-            set { SetValue(IsDefaultSortColumnProperty, value); }
+            get => (bool)GetValue(IsDefaultSortColumnProperty);
+            set => SetValue(IsDefaultSortColumnProperty, value);
         }
 
         public static readonly DependencyProperty IsDefaultSortColumnProperty =
@@ -32,8 +32,8 @@ namespace SharePointLogViewer.Controls
 
         public bool CanBeFiltered
         {
-            get { return (bool)GetValue(CanBeFilteredColumnProperty); }
-            set { SetValue(CanBeFilteredColumnProperty, value); }
+            get => (bool)GetValue(CanBeFilteredColumnProperty);
+            set => SetValue(CanBeFilteredColumnProperty, value);
         }
 
         public static readonly DependencyProperty CanBeFilteredColumnProperty =
@@ -41,7 +41,7 @@ namespace SharePointLogViewer.Controls
 
         public bool Visible
         {
-            get { return (bool)GetValue(VisibleProperty); }
+            get => (bool)GetValue(VisibleProperty);
             set 
             {
                 if (Visible ^ value)

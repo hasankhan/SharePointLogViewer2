@@ -11,7 +11,7 @@ namespace SharePointLogViewer.Controls.AutoCompleteTextBox
         public AutoCompleteTextBox()
         {
             AutoCompleteManager = new AutoCompleteManager();
-            AutoCompleteManager.DataProvider = new SimpleStaticDataProvider(Enumerable.Empty<String>());
+            AutoCompleteManager.DataProvider = new SimpleStaticDataProvider(Enumerable.Empty<string>());
             Loaded += AutoCompleteTextBox_Loaded;
         }
 

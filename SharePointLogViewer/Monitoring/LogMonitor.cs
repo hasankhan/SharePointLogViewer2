@@ -18,9 +18,9 @@ namespace SharePointLogViewer.Monitoring
                 throw new ArgumentException("Directory does not exist.", folderPath);
             this.folderPath = folderPath;
             fileTail = new FileTail();
-            fileTail.LineDiscovered += new EventHandler<LineDiscoveredEventArgs>(fileTail_LineDiscovered);
+            fileTail.LineDiscovered += fileTail_LineDiscovered;
             watcher = new LogDirectoryWatcher(folderPath);
-            watcher.FileCreated += new EventHandler<FileCreatedEventArgs>(watcher_FileCreated);            
+            watcher.FileCreated += watcher_FileCreated;            
         }
 
         public void Start()
@@ -46,7 +46,7 @@ namespace SharePointLogViewer.Monitoring
 
         void fileTail_LineDiscovered(object sender, LineDiscoveredEventArgs e)
         {
-            if (!String.IsNullOrEmpty(e.Line.Trim()) && !firstLine)
+            if (!string.IsNullOrEmpty(e.Line.Trim()) && !firstLine)
             {
                 var entry = LogEntry.Parse(e.Line);
                 if (entry != null)

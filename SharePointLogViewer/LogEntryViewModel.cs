@@ -21,7 +21,7 @@ namespace SharePointLogViewer
 
         public bool Bookmarked
         {
-            get { return bookmarked; }
+            get => bookmarked;
             set
             {
                 bookmarked = value;
@@ -29,18 +29,20 @@ namespace SharePointLogViewer
             }
         }
 
+/*
         public string Timestamp
         {
-            get { return entry.Timestamp; }
+            get => entry.Timestamp;
             set 
             { 
                 entry.Timestamp = value;
                 OnPropertyChanged("Timestamp"); 
             }
         }
+*/
         public string Process
         {
-            get { return entry.Process; }
+            get => entry.Process;
             set 
             { 
                 entry.Process = value; 
@@ -71,7 +73,7 @@ namespace SharePointLogViewer
 */
         public string Category
         {
-            get { return entry.Category; }
+            get => entry.Category;
             set 
             { 
                 entry.Category = value; 
@@ -91,7 +93,7 @@ namespace SharePointLogViewer
 */
         public string Level
         {
-            get { return entry.Level; }
+            get => entry.Level;
             set 
             { 
                 entry.Level = value; 
@@ -100,7 +102,7 @@ namespace SharePointLogViewer
         }
         public string Message
         {
-            get { return entry.Message; }
+            get => entry.Message;
             set 
             { 
                 entry.Message = value; 
@@ -108,15 +110,17 @@ namespace SharePointLogViewer
             }
         }
         
+/*
         public string Correlation
         {
-            get { return entry.Correlation; }
+            get => entry.Correlation;
             set 
             { 
                 entry.Correlation = value; 
                 OnPropertyChanged("Correlation"); 
             }
         }
+*/
 
         void OnPropertyChanged(string propertyName)
         {

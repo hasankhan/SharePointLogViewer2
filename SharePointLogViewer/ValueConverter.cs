@@ -14,20 +14,23 @@ namespace SharePointLogViewer
         {
 
             ListViewItem item = (ListViewItem)value;
-            ListView listView = ItemsControl.ItemsControlFromItemContainer(item) as ListView;
 
             // Get the index of a ListViewItem
-            int index = listView.ItemContainerGenerator.IndexFromContainer(item);
-
-            if (index % 2 == 0)
+            if (ItemsControl.ItemsControlFromItemContainer(item) is ListView listView)
             {
-                return new SolidColorBrush(Colors.LightGray);
-            }
-            else
-            {
-                return new SolidColorBrush(Colors.White);
+                int index = listView.ItemContainerGenerator.IndexFromContainer(item ?? throw new InvalidOperationException());
+
+                if (index % 2 == 0)
+                {
+                    return new SolidColorBrush(Colors.LightGray);
+                }
+                else
+                {
+                    return new SolidColorBrush(Colors.White);
+                }
             }
 
+            return null;
         }
 
 

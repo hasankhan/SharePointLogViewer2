@@ -26,7 +26,7 @@ namespace SharePointLogViewer
         OverflowCollection<LogEntryViewModel> logEntries = new OverflowCollection<LogEntryViewModel>(le=>!le.Bookmarked);
 
         LogsLoader logsLoader = new LogsLoader();
-        ILogMonitor logMonitor = null;
+        ILogMonitor logMonitor;
         DynamicFilter filter;
         bool liveMode;
         OpenFileDialog openDialog;
@@ -59,12 +59,12 @@ namespace SharePointLogViewer
                 WindowState = WindowState.Maximized;
 
             lastWindowState = WindowState;
-            logsLoader.LoadCompleted += new EventHandler<LoadCompletedEventArgs>(logsLoader_LoadCompleted);
+            logsLoader.LoadCompleted += logsLoader_LoadCompleted;
 
-            Loaded += new RoutedEventHandler(MainWindow_Loaded);
-            Closing += new CancelEventHandler(MainWindow_Closing);
+            Loaded += MainWindow_Loaded;
+            Closing += MainWindow_Closing;
             trayNotifier = new SystemTrayNotifier();
-            trayNotifier.Click += new EventHandler(trayIcon_Click);
+            trayNotifier.Click += trayIcon_Click;
 
             bookmarkNavigator = new BookmarkNavigator(lstLog, ()=>GetCollectionViewSource().View);
 
@@ -85,7 +85,7 @@ namespace SharePointLogViewer
             else
             {
                 showMinimizeToolTip = true;
-                if (!String.IsNullOrEmpty(App.FileToOpen))
+                if (!string.IsNullOrEmpty(App.FileToOpen))
                 {
                     files = new string[] { App.FileToOpen };
                     LoadFiles();
@@ -102,9 +102,9 @@ namespace SharePointLogViewer
 
         void LoadSettings()
         {
-            if (Properties.Settings.Default.EnableEmailNotifications && !(String.IsNullOrEmpty(Properties.Settings.Default.EmailSenders) ||
-                                                                          String.IsNullOrEmpty(Properties.Settings.Default.EmailRecepients) ||
-                                                                          String.IsNullOrEmpty(Properties.Settings.Default.EmailSmtpServer)))
+            if (Properties.Settings.Default.EnableEmailNotifications && !(string.IsNullOrEmpty(Properties.Settings.Default.EmailSenders) ||
+                                                                          string.IsNullOrEmpty(Properties.Settings.Default.EmailRecepients) ||
+                                                                          string.IsNullOrEmpty(Properties.Settings.Default.EmailSmtpServer)))
             {
                 INotifier notifier = new EmailNotifier(Properties.Settings.Default.EmailSenders,
                                                        Properties.Settings.Default.EmailRecepients,
@@ -158,7 +158,7 @@ namespace SharePointLogViewer
 
             if (SPUtility.IsWSSInstalled)
             {
-                if (String.IsNullOrEmpty(Properties.Settings.Default.LastDirectory))
+                if (string.IsNullOrEmpty(Properties.Settings.Default.LastDirectory))
                     lastDirectory = SPUtility.GetLogsLocation();
                 else
                     lastDirectory = Properties.Settings.Default.LastDirectory;
@@ -166,7 +166,7 @@ namespace SharePointLogViewer
             else
                 lastDirectory = Properties.Settings.Default.LastDirectory;
 
-            if (!String.IsNullOrEmpty(lastDirectory) && Directory.Exists(lastDirectory))
+            if (!string.IsNullOrEmpty(lastDirectory) && Directory.Exists(lastDirectory))
                 Environment.CurrentDirectory = lastDirectory;
         }
 
@@ -311,7 +311,7 @@ namespace SharePointLogViewer
                 else
                     logMonitor = new LogMonitor(folderPath);
 
-                logMonitor.LogEntryDiscovered += new EventHandler<LogEntryDiscoveredEventArgs>(watcher_LogEntryDiscovered);
+                logMonitor.LogEntryDiscovered += watcher_LogEntryDiscovered;
 
                 if (files.Length > 0)
                     Reset();
@@ -397,8 +397,7 @@ namespace SharePointLogViewer
 
         private void lvCopyCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var logEntry = lstLog.SelectedItem as LogEntryViewModel;
-            if (logEntry != null)
+            if (lstLog.SelectedItem is LogEntryViewModel logEntry)
                 Clipboard.SetText(LogExporter.Format(logEntry));
         }
 
@@ -443,8 +442,7 @@ namespace SharePointLogViewer
 
         private void ToggleLogEntryBookmark()
         {
-            LogEntryViewModel selected = lstLog.SelectedItem as LogEntryViewModel;
-            if (selected != null)
+            if (lstLog.SelectedItem is LogEntryViewModel selected)
                 selected.Bookmarked = !selected.Bookmarked;
         }
 

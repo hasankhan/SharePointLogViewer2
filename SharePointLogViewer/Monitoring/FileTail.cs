@@ -25,10 +25,7 @@ namespace SharePointLogViewer.Monitoring
             stopSync = new ManualResetEvent(true);
         }
 
-        public bool IsBusy
-        {
-            get { return worker.IsBusy; }
-        }
+        public bool IsBusy => worker.IsBusy;
 
         public void Start(string path)
         {
@@ -37,8 +34,8 @@ namespace SharePointLogViewer.Monitoring
             worker = new BackgroundWorker();
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
-            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
-            worker.ProgressChanged += new ProgressChangedEventHandler(worker_ProgressChanged); 
+            worker.DoWork += worker_DoWork;
+            worker.ProgressChanged += worker_ProgressChanged; 
             worker.RunWorkerAsync();
         }
 
@@ -57,7 +54,7 @@ namespace SharePointLogViewer.Monitoring
             using (StreamReader reader = new StreamReader(stream))
             {
                 reader.ReadToEnd();
-                string data = String.Empty;
+                string data = string.Empty;
                 while (!worker.CancellationPending)
                 {
                     Thread.Sleep(1000);
@@ -65,8 +62,8 @@ namespace SharePointLogViewer.Monitoring
                         continue;
                     data += reader.ReadToEnd();
                     string[] lines = data.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
-                    data = data.EndsWith("\n") ? String.Empty : lines.Last();
-                    int validLines = data == String.Empty ? lines.Length : lines.Length - 1;
+                    data = data.EndsWith("\n") ? string.Empty : lines.Last();
+                    int validLines = data == string.Empty ? lines.Length : lines.Length - 1;
                     foreach (string line in lines.Take(validLines))
                         worker.ReportProgress(0, line);                        
                 }
@@ -76,7 +73,7 @@ namespace SharePointLogViewer.Monitoring
 
         void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            LineDiscovered(this, new LineDiscoveredEventArgs() { Line = (String)e.UserState });
+            LineDiscovered(this, new LineDiscoveredEventArgs() { Line = (string)e.UserState });
         }
 
         #region IDisposable Members

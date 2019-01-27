@@ -12,11 +12,11 @@ namespace SharePointLogViewer.Notifiers
 
         public EmailNotifier(string sender, string recepients, string smtpServer)
         {
-            if (String.IsNullOrEmpty(sender))
+            if (string.IsNullOrEmpty(sender))
                 throw new ArgumentNullException("sender");
-            if (String.IsNullOrEmpty(recepients))
+            if (string.IsNullOrEmpty(recepients))
                 throw new ArgumentNullException("recepients");
-            if (String.IsNullOrEmpty(smtpServer))
+            if (string.IsNullOrEmpty(smtpServer))
                 throw new ArgumentNullException("smtpServer");
 
             this.sender = sender;

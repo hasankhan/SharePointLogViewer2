@@ -45,13 +45,13 @@ namespace SharePointLogViewer.Controls.AutoCompleteTextBox
 
         public IAutoCompleteDataProvider DataProvider
         {
-            get { return _dataProvider; }
-            set { _dataProvider = value; }
+            get => _dataProvider;
+            set => _dataProvider = value;
         }
 
         public bool Disabled
         {
-            get { return _disabled; }
+            get => _disabled;
             set
             {
                 _disabled = value;
@@ -62,10 +62,7 @@ namespace SharePointLogViewer.Controls.AutoCompleteTextBox
             }
         }
 
-        public bool AutoCompleting
-        {
-            get { return _popup.IsOpen; }
-        }
+        public bool AutoCompleting => _popup.IsOpen;
 
         public AutoCompleteManager()
         {
@@ -206,8 +203,8 @@ namespace SharePointLogViewer.Controls.AutoCompleteTextBox
                 popupDelay = new Timer(_ =>
                 {
                     var dispatcher = Application.Current.Dispatcher;
-                    string text = (string)dispatcher.Invoke(new Func<string>(() => GetWordUnderCursor()));
-                    if (String.IsNullOrEmpty(text))
+                    string text = (string)dispatcher.Invoke(() => GetWordUnderCursor());
+                    if (string.IsNullOrEmpty(text))
                         dispatcher.Invoke((Action)(() => _popup.IsOpen = false));
                     else
                     {
@@ -463,7 +460,7 @@ namespace SharePointLogViewer.Controls.AutoCompleteTextBox
 
         private bool PopupOnTop
         {
-            get { return _popupOnTop; }
+            get => _popupOnTop;
             set
             {
                 if (_popupOnTop == value)
@@ -548,8 +545,8 @@ namespace SharePointLogViewer.Controls.AutoCompleteTextBox
             int start, end;
             GetWordUnderCursor(out start, out end);
 
-            string prefix = start < _textBeforeChangedByCode.Length ? _textBeforeChangedByCode.Substring(0, start) : String.Empty;
-            string suffix = end < _textBeforeChangedByCode.Length ? _textBeforeChangedByCode.Substring(end + 1) : String.Empty;
+            string prefix = start < _textBeforeChangedByCode.Length ? _textBeforeChangedByCode.Substring(0, start) : string.Empty;
+            string suffix = end < _textBeforeChangedByCode.Length ? _textBeforeChangedByCode.Substring(end + 1) : string.Empty;
 
             _textChangedByCode = true;
             Debug.Print("@@@@@@@" + text);            

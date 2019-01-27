@@ -11,10 +11,10 @@ namespace SharePointLogViewer.Searching
         FastMethodInvoker MyDelegate;
         public MethodInfo MyMethodInfo;
         public ParameterInfo[] MyParameters;
-        Object HostObject;
+        object HostObject;
         public int NumberOfArguments;
 
-        public FastInvoke(Object MyObject, String MyName)
+        public FastInvoke(object MyObject, string MyName)
         {
             HostObject = MyObject;
             Type t2 = MyObject.GetType();
@@ -33,7 +33,7 @@ namespace SharePointLogViewer.Searching
             }
             catch (Exception e)
             {
-                Object o = new Object();
+                object o = new object();
                 o = e.Message;
                 return (o);
 
@@ -169,7 +169,7 @@ namespace SharePointLogViewer.Searching
 
             if (value > -129 && value < 128)
             {
-                il.Emit(OpCodes.Ldc_I4_S, (SByte)value);
+                il.Emit(OpCodes.Ldc_I4_S, (sbyte)value);
             }
             else
             {

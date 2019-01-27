@@ -33,10 +33,7 @@ namespace SharePointLogViewer.Searching
 
         object SelectedItem
         {
-            get
-            {
-                return lstLog.SelectedItem;
-            }
+            get => lstLog.SelectedItem;
             set
             {
                 lstLog.SelectedItem = value;

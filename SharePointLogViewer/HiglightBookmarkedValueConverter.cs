@@ -12,7 +12,7 @@ namespace SharePointLogViewer
             bool bookmarkedAndNotSelected = false;
 
             if (values.Length == 2)
-                bookmarkedAndNotSelected = (bool)values[0] == true && (bool)values[1] == false;
+                bookmarkedAndNotSelected = (bool)values[0] && (bool)values[1] == false;
             
             return bookmarkedAndNotSelected;
         }

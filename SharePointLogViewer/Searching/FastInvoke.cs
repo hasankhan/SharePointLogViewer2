@@ -111,7 +111,7 @@ namespace SharePointLogViewer.Searching
         }
 
         private static void EmitCastToReference(ILGenerator il,
-                                                System.Type type)
+                                                Type type)
         {
             if (type.IsValueType)
             {
@@ -123,7 +123,7 @@ namespace SharePointLogViewer.Searching
             }
         }
 
-        private static void EmitBoxIfNeeded(ILGenerator il, System.Type type)
+        private static void EmitBoxIfNeeded(ILGenerator il, Type type)
         {
             if (type.IsValueType)
             {
@@ -180,7 +180,7 @@ namespace SharePointLogViewer.Searching
         public object TypeConvert(object source, Type DestType)
         {
 
-            object NewObject = System.Convert.ChangeType(source, DestType);
+            object NewObject = Convert.ChangeType(source, DestType);
 
             return (NewObject);
         }

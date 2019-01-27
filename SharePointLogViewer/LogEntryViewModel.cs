@@ -47,6 +47,7 @@ namespace SharePointLogViewer
                 OnPropertyChanged("Process"); 
             }
         }
+/*
         public string TID
         {
             get { return entry.TID; }
@@ -56,6 +57,8 @@ namespace SharePointLogViewer
                 OnPropertyChanged("TID"); 
             }
         }
+*/
+/*
         public string Area
         {
             get { return entry.Area; }
@@ -65,6 +68,7 @@ namespace SharePointLogViewer
                 OnPropertyChanged("Area");
             }
         }
+*/
         public string Category
         {
             get { return entry.Category; }
@@ -74,6 +78,7 @@ namespace SharePointLogViewer
                 OnPropertyChanged("Category"); 
             }
         }
+/*
         public string EventID
         {
             get { return entry.EventID; }
@@ -83,6 +88,7 @@ namespace SharePointLogViewer
                 OnPropertyChanged("EventID"); 
             }
         }
+*/
         public string Level
         {
             get { return entry.Level; }

@@ -25,7 +25,7 @@ namespace SharePointLogViewer
         {
             LoadGeneralSettings();
             LoadNotificationSettings();
-            this.DataContext = settingsVm;
+            DataContext = settingsVm;
         }
 
         private void LoadNotificationSettings()
@@ -69,7 +69,7 @@ namespace SharePointLogViewer
         {
             SaveGeneralSettings();
             SaveNotificationSettings();
-            this.DialogResult = true;
+            DialogResult = true;
             Close();
         }
 

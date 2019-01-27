@@ -9,7 +9,7 @@ namespace SharePointLogViewer.Controls
 {
     public class SortableGridViewColumn : GridViewColumn
     {
-        static Setter hideSetter = new Setter(GridViewColumnHeader.VisibilityProperty, Visibility.Collapsed);
+        static Setter hideSetter = new Setter(UIElement.VisibilityProperty, Visibility.Collapsed);
 
         public string SortPropertyName
         {

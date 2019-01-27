@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 
 namespace SharePointLogViewer
 {
+/*
+ CLASS UNUSED
     static class Extensions
     {
         public static void AddRange<T>(this ObservableCollection<T> collection, IEnumerable<T> list) 
@@ -11,4 +13,5 @@ namespace SharePointLogViewer
                 collection.Add(item); 
         }
     }
+*/
 }

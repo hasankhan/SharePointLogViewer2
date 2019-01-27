@@ -6,7 +6,7 @@ namespace SharePointLogViewer.Filters
     {
         ListView lstLog;
 
-        public ListViewFilter(System.Windows.Controls.ListView lstLog)
+        public ListViewFilter(ListView lstLog)
         {
             this.lstLog = lstLog;
         }

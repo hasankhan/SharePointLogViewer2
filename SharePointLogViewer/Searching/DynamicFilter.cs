@@ -64,7 +64,7 @@ namespace SharePointLogViewer.Searching
             public PropertyValueComparer(PropertyInfo property, params string[] keywords)
             {
                 this.keywords = keywords;
-                this.fastInvoker = FastInvoke.GetMethodInvoker(property.GetGetMethod());
+                fastInvoker = FastInvoke.GetMethodInvoker(property.GetGetMethod());
             }
 
             public PropertyValueComparer(Type type, string propertyName, params string[] keywords)

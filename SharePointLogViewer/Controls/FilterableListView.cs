@@ -62,7 +62,7 @@ namespace SharePointLogViewer.Controls
             public FilterStruct(PropertyDescriptor propertyDescriptor, Button button, FilterItem value)
             {
                 this.value = value;
-                this.Button = button;
+                Button = button;
                 PropertyDescriptor = propertyDescriptor;
             }
 
@@ -131,7 +131,7 @@ namespace SharePointLogViewer.Controls
                 
                 FilterItem otherItem = obj as FilterItem;
                 if (otherItem != null)
-                    return this.item == otherItem.item;
+                    return item == otherItem.item;
                 
                 return base.Equals(obj);
             }
@@ -140,9 +140,9 @@ namespace SharePointLogViewer.Controls
             {
                 FilterItem otherFilterItem = (FilterItem)obj;
 
-                if (this.Item == null && obj == null)
+                if (Item == null && obj == null)
                     return 0;
-                else if (otherFilterItem.Item != null && this.Item != null)
+                else if (otherFilterItem.Item != null && Item != null)
                     return ((IComparable)item).CompareTo((IComparable)otherFilterItem.item);
                 else
                     return -1;
@@ -189,7 +189,7 @@ namespace SharePointLogViewer.Controls
             dictionary = Application.LoadComponent(uri) as ResourceDictionary;
 
             // cast the ListView's View to a GridView
-            GridView gridView = this.View as GridView;
+            GridView gridView = View as GridView;
             if (gridView != null)
             {
                 // apply the data template, that includes the popup, button etc ... to each column
@@ -329,7 +329,7 @@ namespace SharePointLogViewer.Controls
             if (!column.CanBeFiltered)
             {
                 FilterStruct filter = (FilterStruct)currentFilters[currentFilterProperty];
-                filter.Button.Visibility = System.Windows.Visibility.Hidden;
+                filter.Button.Visibility = Visibility.Hidden;
 
                 return;
             }

@@ -61,8 +61,8 @@ namespace SharePointLogViewer
             lastWindowState = WindowState;
             logsLoader.LoadCompleted += new EventHandler<LoadCompletedEventArgs>(logsLoader_LoadCompleted);
 
-            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
-            this.Closing += new CancelEventHandler(MainWindow_Closing);
+            Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            Closing += new CancelEventHandler(MainWindow_Closing);
             trayNotifier = new SystemTrayNotifier();
             trayNotifier.Click += new EventHandler(trayIcon_Click);
 
@@ -150,7 +150,7 @@ namespace SharePointLogViewer
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.DataContext = logEntries;
+            DataContext = logEntries;
             txtFilter.AutoCompleteManager.DataProvider = new SimpleStaticDataProvider((new LogEntryTokenizer(logEntries)).Distinct());
             UpdateFilter();
 
@@ -212,7 +212,7 @@ namespace SharePointLogViewer
 
         CollectionViewSource GetCollectionViewSource()
         {
-            CollectionViewSource source = (CollectionViewSource)this.Resources["FilteredCollection"];
+            CollectionViewSource source = (CollectionViewSource)Resources["FilteredCollection"];
             return source;
         }
 
@@ -279,7 +279,7 @@ namespace SharePointLogViewer
                 {
                     var le = new LogEntryViewModel(e.LogEntry);
                     logEntries.Add(le);
-                    if (this.Visibility == System.Windows.Visibility.Visible)
+                    if (Visibility == Visibility.Visible)
                         lstLog.ScrollIntoView(le);
                     NotifyIfRequired(le);
                 }
@@ -355,7 +355,7 @@ namespace SharePointLogViewer
         void StopProcessing()
         {
             bdrShadow.Visibility = Visibility.Hidden;
-            this.Cursor = Cursors.Arrow;
+            Cursor = Cursors.Arrow;
         }
 
         private void OpenFile_CanExecute(object sender, CanExecuteRoutedEventArgs e)

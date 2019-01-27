@@ -5,9 +5,6 @@ namespace SharePointLogViewer
 {
     class LogFilterListView : FilterableListView
     {
-        protected override Type ListItemType
-        {
-            get { return typeof(LogEntryViewModel); }
-        }
+        protected override Type ListItemType => typeof(LogEntryViewModel);
     }
 }

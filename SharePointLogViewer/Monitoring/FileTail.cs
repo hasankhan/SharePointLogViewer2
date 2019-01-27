@@ -60,7 +60,7 @@ namespace SharePointLogViewer.Monitoring
                 string data = String.Empty;
                 while (!worker.CancellationPending)
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    Thread.Sleep(1000);
                     if (reader.EndOfStream)
                         continue;
                     data += reader.ReadToEnd();

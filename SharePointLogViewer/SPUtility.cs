@@ -182,11 +182,11 @@ namespace SharePointLogViewer
         {
             Type farmType = null;
 
-            if (SPUtility.SPVersion == SPVersion.SP2007)
+            if (SPVersion == SPVersion.SP2007)
                 farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
-            else if (SPUtility.SPVersion == SPVersion.SP2010)
+            else if (SPVersion == SPVersion.SP2010)
                 farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
-            else if (SPUtility.SPVersion == SPVersion.SP2013)
+            else if (SPVersion == SPVersion.SP2013)
                 farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
 
 
@@ -253,11 +253,11 @@ namespace SharePointLogViewer
         {
             string logLocation = String.Empty;
             Type diagSvcType = null;
-            if (SPUtility.SPVersion == SPVersion.SP2007)
+            if (SPVersion == SPVersion.SP2007)
                 diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
-            else if (SPUtility.SPVersion == SPVersion.SP2010)
+            else if (SPVersion == SPVersion.SP2010)
                 diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
-            else if (SPUtility.SPVersion == SPVersion.SP2013)
+            else if (SPVersion == SPVersion.SP2013)
                 diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
 
             if (diagSvcType != null)

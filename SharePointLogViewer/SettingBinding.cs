@@ -11,8 +11,8 @@ namespace SharePointLogViewer
 
         private void Initialize()
         {
-            this.Source = SharePointLogViewer.Properties.Settings.Default;
-            this.Mode = BindingMode.TwoWay;
+            Source = Properties.Settings.Default;
+            Mode = BindingMode.TwoWay;
         }
     }
 }

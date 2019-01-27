@@ -4,6 +4,7 @@ using System.Windows;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Collections;
+using System.Windows.Controls.Primitives;
 using SharePointLogViewer.Searching;
 
 // SortableListView, from the following blog post:
@@ -73,10 +74,10 @@ namespace SharePointLogViewer.Controls
 
 
             // add the event handler to the GridViewColumnHeader. This strongly ties this ListView to a GridView.
-            this.AddHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler(GridViewColumnHeaderClickedHandler));
+            AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(GridViewColumnHeaderClickedHandler));
 
             // cast the ListView's View to a GridView
-            GridView gridView = this.View as GridView;
+            GridView gridView = View as GridView;
             if (gridView != null)
             {
                 // determine which column is marked as IsDefaultSortColumn. Stops on the first column marked this way.
@@ -102,10 +103,10 @@ namespace SharePointLogViewer.Controls
                     lastSortedOnColumn = sortableGridViewColumn;
                     Sort(sortableGridViewColumn.SortPropertyName, ListSortDirection.Ascending);
 
-                    if (!String.IsNullOrEmpty(this.ColumnHeaderSortedAscendingTemplate))
-                        sortableGridViewColumn.HeaderTemplate = this.TryFindResource(ColumnHeaderSortedAscendingTemplate) as DataTemplate;
+                    if (!String.IsNullOrEmpty(ColumnHeaderSortedAscendingTemplate))
+                        sortableGridViewColumn.HeaderTemplate = TryFindResource(ColumnHeaderSortedAscendingTemplate) as DataTemplate;
 
-                    this.SelectedIndex = 0;
+                    SelectedIndex = 0;
                 }
             }
 
@@ -206,7 +207,7 @@ namespace SharePointLogViewer.Controls
         private void Sort(string sortBy, ListSortDirection direction)
         {
             lastDirection = direction;
-            ListCollectionView dataView = CollectionViewSource.GetDefaultView(this.ItemsSource) as ListCollectionView;
+            ListCollectionView dataView = CollectionViewSource.GetDefaultView(ItemsSource) as ListCollectionView;
 
             if (dataView != null)
             {
@@ -217,7 +218,7 @@ namespace SharePointLogViewer.Controls
 
         private void RemoveSort()
         { 
-            ListCollectionView dataView = CollectionViewSource.GetDefaultView(this.ItemsSource) as ListCollectionView;
+            ListCollectionView dataView = CollectionViewSource.GetDefaultView(ItemsSource) as ListCollectionView;
 
             if (dataView != null)
             {

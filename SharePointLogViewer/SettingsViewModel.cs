@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SharePointLogViewer
 {
@@ -28,7 +25,7 @@ namespace SharePointLogViewer
         public bool RunAtStartup { get; set; }
         public bool HideToSystemTray { get; set; }
         public int LiveLimit { get; set; }
-        public List<SPColumn> Columns { get; private set; }
+        public List<SPColumn> Columns { get; }
 
         public GeneralSettingsViewModel()
         {
@@ -38,9 +35,6 @@ namespace SharePointLogViewer
 
     class NotificationSettingsViewModel
     {
-        public NotificationSettingsViewModel()
-        {
-        }
         public bool EnableSystemTrayNotification { get; set; }
         public bool EnableEmailNotification { get; set; }
         public bool EnableEventLogNotification { get; set; }

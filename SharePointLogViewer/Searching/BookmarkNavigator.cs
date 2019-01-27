@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.ComponentModel;
 
@@ -34,10 +33,7 @@ namespace SharePointLogViewer.Searching
 
         object SelectedItem
         {
-            get
-            {
-                return lstLog.SelectedItem;
-            }
+            get => lstLog.SelectedItem;
             set
             {
                 lstLog.SelectedItem = value;

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -14,10 +11,10 @@ namespace SharePointLogViewer.Searching
         FastMethodInvoker MyDelegate;
         public MethodInfo MyMethodInfo;
         public ParameterInfo[] MyParameters;
-        Object HostObject;
+        object HostObject;
         public int NumberOfArguments;
 
-        public FastInvoke(Object MyObject, String MyName)
+        public FastInvoke(object MyObject, string MyName)
         {
             HostObject = MyObject;
             Type t2 = MyObject.GetType();
@@ -36,7 +33,7 @@ namespace SharePointLogViewer.Searching
             }
             catch (Exception e)
             {
-                Object o = new Object();
+                object o = new object();
                 o = e.Message;
                 return (o);
 
@@ -114,7 +111,7 @@ namespace SharePointLogViewer.Searching
         }
 
         private static void EmitCastToReference(ILGenerator il,
-                                                System.Type type)
+                                                Type type)
         {
             if (type.IsValueType)
             {
@@ -126,7 +123,7 @@ namespace SharePointLogViewer.Searching
             }
         }
 
-        private static void EmitBoxIfNeeded(ILGenerator il, System.Type type)
+        private static void EmitBoxIfNeeded(ILGenerator il, Type type)
         {
             if (type.IsValueType)
             {
@@ -172,7 +169,7 @@ namespace SharePointLogViewer.Searching
 
             if (value > -129 && value < 128)
             {
-                il.Emit(OpCodes.Ldc_I4_S, (SByte)value);
+                il.Emit(OpCodes.Ldc_I4_S, (sbyte)value);
             }
             else
             {
@@ -183,7 +180,7 @@ namespace SharePointLogViewer.Searching
         public object TypeConvert(object source, Type DestType)
         {
 
-            object NewObject = System.Convert.ChangeType(source, DestType);
+            object NewObject = Convert.ChangeType(source, DestType);
 
             return (NewObject);
         }

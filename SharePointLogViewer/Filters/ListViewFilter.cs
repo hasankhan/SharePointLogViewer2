@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace SharePointLogViewer.Filters
 {
@@ -10,7 +6,7 @@ namespace SharePointLogViewer.Filters
     {
         ListView lstLog;
 
-        public ListViewFilter(System.Windows.Controls.ListView lstLog)
+        public ListViewFilter(ListView lstLog)
         {
             this.lstLog = lstLog;
         }

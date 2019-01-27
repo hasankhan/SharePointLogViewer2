@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 // SortableListView, from the following blog post:
 //
@@ -19,12 +9,12 @@ namespace SharePointLogViewer.Controls
 {
     public class SortableGridViewColumn : GridViewColumn
     {
-        static Setter hideSetter = new Setter(GridViewColumnHeader.VisibilityProperty, Visibility.Collapsed);
+        static Setter hideSetter = new Setter(UIElement.VisibilityProperty, Visibility.Collapsed);
 
         public string SortPropertyName
         {
-            get { return (string)GetValue(SortPropertyNameProperty); }
-            set { SetValue(SortPropertyNameProperty, value); }
+            get => (string)GetValue(SortPropertyNameProperty);
+            set => SetValue(SortPropertyNameProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for SortPropertyName.  This enables animation, styling, binding, etc...
@@ -33,8 +23,8 @@ namespace SharePointLogViewer.Controls
         
         public bool IsDefaultSortColumn
         {
-            get { return (bool)GetValue(IsDefaultSortColumnProperty); }
-            set { SetValue(IsDefaultSortColumnProperty, value); }
+            get => (bool)GetValue(IsDefaultSortColumnProperty);
+            set => SetValue(IsDefaultSortColumnProperty, value);
         }
 
         public static readonly DependencyProperty IsDefaultSortColumnProperty =
@@ -42,8 +32,8 @@ namespace SharePointLogViewer.Controls
 
         public bool CanBeFiltered
         {
-            get { return (bool)GetValue(CanBeFilteredColumnProperty); }
-            set { SetValue(CanBeFilteredColumnProperty, value); }
+            get => (bool)GetValue(CanBeFilteredColumnProperty);
+            set => SetValue(CanBeFilteredColumnProperty, value);
         }
 
         public static readonly DependencyProperty CanBeFilteredColumnProperty =
@@ -51,7 +41,7 @@ namespace SharePointLogViewer.Controls
 
         public bool Visible
         {
-            get { return (bool)GetValue(VisibleProperty); }
+            get => (bool)GetValue(VisibleProperty);
             set 
             {
                 if (Visible ^ value)

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace SharePointLogViewer.Monitoring
@@ -25,7 +22,7 @@ namespace SharePointLogViewer.Monitoring
             watcher.Path = folderPath;
             watcher.Filter = Filter;
             watcher.NotifyFilter = NotifyFilters.FileName;
-            watcher.Created += new FileSystemEventHandler(watcher_Created);
+            watcher.Created += watcher_Created;
         }
 
         public void Start()

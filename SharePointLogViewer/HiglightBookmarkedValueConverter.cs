@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Data;
 
 namespace SharePointLogViewer
@@ -15,7 +12,7 @@ namespace SharePointLogViewer
             bool bookmarkedAndNotSelected = false;
 
             if (values.Length == 2)
-                bookmarkedAndNotSelected = (bool)values[0] == true && (bool)values[1] == false;
+                bookmarkedAndNotSelected = (bool)values[0] && (bool)values[1] == false;
             
             return bookmarkedAndNotSelected;
         }

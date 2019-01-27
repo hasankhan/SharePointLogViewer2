@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SharePointLogViewer.Monitoring
 {
@@ -21,7 +19,7 @@ namespace SharePointLogViewer.Monitoring
             logMonitors.ForEach(monitor =>
             {
                 monitor.Start();
-                monitor.LogEntryDiscovered += new EventHandler<LogEntryDiscoveredEventArgs>(monitor_LogEntryDiscovered);
+                monitor.LogEntryDiscovered += monitor_LogEntryDiscovered;
             });
         }
         
@@ -30,7 +28,7 @@ namespace SharePointLogViewer.Monitoring
             logMonitors.ForEach(monitor =>
             { 
                 monitor.Stop();
-                monitor.LogEntryDiscovered -= new EventHandler<LogEntryDiscoveredEventArgs>(monitor_LogEntryDiscovered);
+                monitor.LogEntryDiscovered -= monitor_LogEntryDiscovered;
             });
         }
 

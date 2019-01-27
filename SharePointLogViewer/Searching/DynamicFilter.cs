@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace SharePointLogViewer.Searching
@@ -24,10 +22,10 @@ namespace SharePointLogViewer.Searching
         static Predicate<object> CreatePredicate<T>(string propertyName, string searchText)
         {
             if (searchText == null)
-                searchText = String.Empty;
+                searchText = string.Empty;
 
             Predicate<object> predicate;
-            if (searchText == String.Empty)
+            if (searchText == string.Empty)
                 predicate = _ => true;
             else
             {
@@ -53,7 +51,7 @@ namespace SharePointLogViewer.Searching
         static Predicate<object> CreatePredicate(PropertyInfo property, params string[] keywords)
         {
             var comparer = new PropertyValueComparer(property, keywords);
-            return new Predicate<object>(comparer.IsMatch);
+            return comparer.IsMatch;
         }
 
         #region Predicate
@@ -66,7 +64,7 @@ namespace SharePointLogViewer.Searching
             public PropertyValueComparer(PropertyInfo property, params string[] keywords)
             {
                 this.keywords = keywords;
-                this.fastInvoker = FastInvoke.GetMethodInvoker(property.GetGetMethod());
+                fastInvoker = FastInvoke.GetMethodInvoker(property.GetGetMethod());
             }
 
             public PropertyValueComparer(Type type, string propertyName, params string[] keywords)

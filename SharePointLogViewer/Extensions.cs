@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace SharePointLogViewer
 {
+/*
+ CLASS UNUSED
     static class Extensions
     {
         public static void AddRange<T>(this ObservableCollection<T> collection, IEnumerable<T> list) 
@@ -14,4 +13,5 @@ namespace SharePointLogViewer
                 collection.Add(item); 
         }
     }
+*/
 }

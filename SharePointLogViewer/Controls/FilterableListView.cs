@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows;
-using System.Collections;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Linq;
 
 
@@ -28,8 +25,8 @@ namespace SharePointLogViewer.Controls
         /// </summary>
         public Style FilterButtonActiveStyle
         {
-            get { return (Style)GetValue(FilterButtonActiveStyleProperty); }
-            set { SetValue(FilterButtonActiveStyleProperty, value); }
+            get => (Style)GetValue(FilterButtonActiveStyleProperty);
+            set => SetValue(FilterButtonActiveStyleProperty, value);
         }
 
         public static readonly DependencyProperty FilterButtonActiveStyleProperty =
@@ -40,8 +37,8 @@ namespace SharePointLogViewer.Controls
         /// </summary>
         public Style FilterButtonInactiveStyle
         {
-            get { return (Style)GetValue(FilterButtonInactiveStyleProperty); }
-            set { SetValue(FilterButtonInactiveStyleProperty, value); }
+            get => (Style)GetValue(FilterButtonInactiveStyleProperty);
+            set => SetValue(FilterButtonInactiveStyleProperty, value);
         }
 
         public static readonly DependencyProperty FilterButtonInactiveStyleProperty =
@@ -65,7 +62,7 @@ namespace SharePointLogViewer.Controls
             public FilterStruct(PropertyDescriptor propertyDescriptor, Button button, FilterItem value)
             {
                 this.value = value;
-                this.Button = button;
+                Button = button;
                 PropertyDescriptor = propertyDescriptor;
             }
 
@@ -91,20 +88,20 @@ namespace SharePointLogViewer.Controls
 
             public string Item
             {
-                get { return item; }
-                set { item = value; }
+                get => item;
+                set => item = value;
             }
 
             /// <summary>
             /// The item viewed in the filter drop down list. Typically this is the same as the item
             /// property, however if item is null, this has the value of "[empty]"
             /// </summary>
-            private Object itemView;
+            private object itemView;
 
-            public Object ItemView
+            public object ItemView
             {
-                get { return itemView; }
-                set { itemView = value; }
+                get => itemView;
+                set => itemView = value;
             }
 
             public FilterItem(IComparable item)
@@ -131,10 +128,9 @@ namespace SharePointLogViewer.Controls
             {
                 if (obj == null)
                     return false;
-                
-                FilterItem otherItem = obj as FilterItem;
-                if (otherItem != null)
-                    return this.item == otherItem.item;
+
+                if (obj is FilterItem otherItem)
+                    return item == otherItem.item;
                 
                 return base.Equals(obj);
             }
@@ -143,9 +139,9 @@ namespace SharePointLogViewer.Controls
             {
                 FilterItem otherFilterItem = (FilterItem)obj;
 
-                if (this.Item == null && obj == null)
+                if (Item == null && obj == null)
                     return 0;
-                else if (otherFilterItem.Item != null && this.Item != null)
+                else if (otherFilterItem.Item != null && Item != null)
                     return ((IComparable)item).CompareTo((IComparable)otherFilterItem.item);
                 else
                     return -1;
@@ -157,7 +153,7 @@ namespace SharePointLogViewer.Controls
         Predicate<object> extraFilter;
         public Predicate<object> ExtraFilter
         {
-            get { return extraFilter; }
+            get => extraFilter;
             set
             {
                 extraFilter = value;
@@ -167,14 +163,14 @@ namespace SharePointLogViewer.Controls
 
         Dictionary<string, FilterStruct> currentFilters = new Dictionary<string, FilterStruct>();
 
-        private void AddFilter(String property, FilterItem value, Button button)
+        private void AddFilter(string property, FilterItem value, Button button)
         {
             var descriptor = TypeDescriptor.GetProperties(ListItemType)[property];
             var filter = new FilterStruct(descriptor, button, value);
             currentFilters[property] = filter;
         }
 
-        protected bool IsPropertyFiltered(String property)
+        protected bool IsPropertyFiltered(string property)
         {
             return currentFilters.ContainsKey(property);
         }
@@ -192,14 +188,12 @@ namespace SharePointLogViewer.Controls
             dictionary = Application.LoadComponent(uri) as ResourceDictionary;
 
             // cast the ListView's View to a GridView
-            GridView gridView = this.View as GridView;
-            if (gridView != null)
+            if (View is GridView gridView)
             {
                 // apply the data template, that includes the popup, button etc ... to each column
                 foreach (GridViewColumn gridViewColumn in gridView.Columns)
                 {
-                    SortableGridViewColumn sc = gridViewColumn as SortableGridViewColumn;
-                    if (sc != null && sc.CanBeFiltered)
+                    if (gridViewColumn is SortableGridViewColumn sc && sc.CanBeFiltered)
                         gridViewColumn.HeaderTemplate = (DataTemplate)dictionary["FilterGridHeaderTemplate"];
                     else
                         gridViewColumn.HeaderTemplate = (DataTemplate)dictionary["SortableGridHeaderTemplate"];
@@ -236,9 +230,7 @@ namespace SharePointLogViewer.Controls
         /// <param name="e"></param>
         private void ShowFilterCommand(object sender, ExecutedRoutedEventArgs e)
         {
-            Button button = e.OriginalSource as Button;
-
-            if (button != null)
+            if (e.OriginalSource is Button button)
             {
                 // navigate up to the header
                 GridViewColumnHeader header = (GridViewColumnHeader)Helpers.FindElementOfTypeUp(button, typeof(GridViewColumnHeader));
@@ -249,7 +241,7 @@ namespace SharePointLogViewer.Controls
                 if (popup != null)
                 {
                     SortableGridViewColumn column = (SortableGridViewColumn)header.Column;
-                    String propertyName = column.SortPropertyName;
+                    string propertyName = column.SortPropertyName;
 
                     var filterList = new List<FilterItem>();
 
@@ -262,7 +254,7 @@ namespace SharePointLogViewer.Controls
                         bool containsNull = false;
                         PropertyDescriptor filterPropDesc = TypeDescriptor.GetProperties(ListItemType)[propertyName];
 
-                        foreach (Object item in Items)
+                        foreach (object item in Items)
                         {
                             object value = filterPropDesc.GetValue(item);
                             if (value != null)
@@ -327,12 +319,12 @@ namespace SharePointLogViewer.Controls
             GridViewColumnHeader header = (GridViewColumnHeader)Helpers.FindElementOfTypeUp(filterListView, typeof(GridViewColumnHeader));
 
             SortableGridViewColumn column = (SortableGridViewColumn)header.Column;
-            String currentFilterProperty = column.SortPropertyName;
+            string currentFilterProperty = column.SortPropertyName;
 
             if (!column.CanBeFiltered)
             {
                 FilterStruct filter = (FilterStruct)currentFilters[currentFilterProperty];
-                filter.Button.Visibility = System.Windows.Visibility.Hidden;
+                filter.Button.Visibility = Visibility.Hidden;
 
                 return;
             }

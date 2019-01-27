@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
 
 namespace SharePointLogViewer.Monitoring
 {
@@ -21,8 +18,8 @@ namespace SharePointLogViewer.Monitoring
         public LogsLoader()
         {
             worker = new BackgroundWorker();
-            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
-            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+            worker.DoWork += worker_DoWork;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
         }
 
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -33,9 +30,9 @@ namespace SharePointLogViewer.Monitoring
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             logEntries.Clear();
-            string[] files = e.Argument as string[];
-            foreach (string file in files)
-                logEntries.AddRange(LogParser.PraseLog(file));     
+            if (e.Argument is string[] files)
+                foreach (string file in files)
+                    logEntries.AddRange(LogParser.PraseLog(file));
         }
 
         public void Start(string[] files)

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
@@ -25,7 +23,7 @@ namespace SharePointLogViewer.Searching
         {
             deferNotification = true;
             foreach (T itm in collection)
-                this.Add(itm);
+                Add(itm);
             deferNotification = false;
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         } 
@@ -36,7 +34,7 @@ namespace SharePointLogViewer.Searching
             T removeItem = default(T);
 
             if (MaxItems > 0 && Count == MaxItems)
-                foreach (var target in base.Items)
+                foreach (var target in Items)
                     if (evictionCriterea(target))
                     {
                         removeItem = target;
@@ -46,7 +44,7 @@ namespace SharePointLogViewer.Searching
 
             base.InsertItem(index, item);
             if (itemFound)
-                base.Remove(removeItem);
+                Remove(removeItem);
         }
 
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)

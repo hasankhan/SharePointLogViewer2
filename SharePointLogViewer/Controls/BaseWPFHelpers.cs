@@ -8,22 +8,11 @@
 #region Using
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Threading;
 using System.Windows;
-using System.Windows.Threading;
-using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Navigation;
+
 #endregion
 
 
@@ -78,8 +67,8 @@ namespace SharePointLogViewer.Controls
         /// </summary>
         public class FinderMatchType : IFinderMatchVisualHelper
         {
-            private Type _ty = null;
-            private bool _stopafterfirst = false;
+            private Type _ty;
+            private bool _stopafterfirst;
 
             public FinderMatchType(Type ty)
             {
@@ -99,14 +88,8 @@ namespace SharePointLogViewer.Controls
 
             public bool StopAfterFirst
             {
-                get
-                {
-                    return _stopafterfirst;
-                }
-                set
-                {
-                    _stopafterfirst = value;
-                }
+                get => _stopafterfirst;
+                set => _stopafterfirst = value;
             }
         }
 
@@ -115,9 +98,9 @@ namespace SharePointLogViewer.Controls
         /// </summary>
         public class FinderMatchName : IFinderMatchVisualHelper
         {
-            private String _name = "";
+            private string _name = "";
 
-            public FinderMatchName(String name)
+            public FinderMatchName(string name)
             {
                 _name = name;
             }
@@ -139,10 +122,7 @@ namespace SharePointLogViewer.Controls
             /// </summary>
             public bool StopAfterFirst
             {
-                get
-                {
-                    return true;
-                }
+                get => true;
                 set
                 {
                 }
@@ -171,10 +151,7 @@ namespace SharePointLogViewer.Controls
             /// </summary>
             public bool StopAfterFirst
             {
-                get
-                {
-                    return true;
-                }
+                get => true;
                 set
                 {
                 }
@@ -204,10 +181,7 @@ namespace SharePointLogViewer.Controls
             /// </summary>
             public bool StopAfterFirst
             {
-                get
-                {
-                    return true;
-                }
+                get => true;
                 set
                 {
                 }
@@ -350,11 +324,9 @@ namespace SharePointLogViewer.Controls
             else
             {
                 // Ok, now try to get a new parent...
-                FrameworkElement feCast = parent as FrameworkElement;
-                if (feCast != null)
+                if (parent is FrameworkElement feCast)
                 {
-                    FrameworkElement feNewParent = feCast.Parent as FrameworkElement;
-                    if (feNewParent == null || feNewParent == feCast)
+                    if (!(feCast.Parent is FrameworkElement feNewParent) || feNewParent == feCast)
                     {
                         // Try to get the templated parent
                         feNewParent = feCast.TemplatedParent as FrameworkElement;
@@ -414,9 +386,7 @@ namespace SharePointLogViewer.Controls
 
             foreach (FrameworkElement me in lst)
             {
-                MediaElement meCast = me as MediaElement;
-
-                if (meCast != null)
+                if (me is MediaElement meCast)
                 {
                     if (meCast.CanPause)
                     {
@@ -443,9 +413,7 @@ namespace SharePointLogViewer.Controls
 
             foreach (FrameworkElement me in lst)
             {
-                MediaElement meCast = me as MediaElement;
-
-                if (meCast != null)
+                if (me is MediaElement meCast)
                 {
                     try
                     {
@@ -485,7 +453,7 @@ namespace SharePointLogViewer.Controls
         /// <param name="parent"></param>
         /// <param name="ElementName"></param>
         /// <returns></returns>
-        public static FrameworkElement FindVisualElement(Visual parent, String ElementName)
+        public static FrameworkElement FindVisualElement(Visual parent, string ElementName)
         {
             return SingleFindDownInTree(parent, new FinderMatchName(ElementName));
         }
@@ -496,7 +464,7 @@ namespace SharePointLogViewer.Controls
         /// <param name="parent"></param>
         /// <param name="ElementName"></param>
         /// <returns></returns>
-        public static FrameworkElement FindVisualElementUp(Visual parent, String ElementName)
+        public static FrameworkElement FindVisualElementUp(Visual parent, string ElementName)
         {
             return SingleFindInTree(parent, new FinderMatchName(ElementName));
         }

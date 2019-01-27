@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
 using Microsoft.Win32;
 using System.Security;
@@ -66,18 +65,16 @@ namespace SharePointLogViewer
                 try
                 {
                     RegistryKey key = GetWSSRegistryKey();
-                    if (key != null)
-                    {
-                        object val = key.GetValue("SharePoint");
-                        if (val != null && val.Equals("Installed"))
-                            return true;
-                    }
+                    object val = key?.GetValue("SharePoint");
+                    if (val != null && val.Equals("Installed"))
+                        return true;
                 }
                 catch (SecurityException) { }
                 return false;
             }
         }
 
+/*
         public static bool IsMOSSInstalled
         {
             get
@@ -100,6 +97,7 @@ namespace SharePointLogViewer
                 return false;
             }
         }
+*/
 
         public static string LatestLogFile
         {
@@ -116,7 +114,7 @@ namespace SharePointLogViewer
         {
             get
             {
-                string installPath = String.Empty;
+                string installPath = string.Empty;
                 try
                 {
                     using (RegistryKey key = GetWSSRegistryKey())
@@ -128,24 +126,18 @@ namespace SharePointLogViewer
             }
         }
 
-        public static ICollection TraceSeverities
-        {
-            get
-            {
-                return new ReadOnlyCollection<TraceSeverity>(severities);
-            }
-        }
+        public static ICollection TraceSeverities => new ReadOnlyCollection<TraceSeverity>(severities);
 
         public static string GetLogsLocation()
         {
-            string logLocation = String.Empty;
+            string logLocation = string.Empty;
 
             if (IsWSSInstalled)
             {
                 logLocation = GetSPDiagnosticsLogLocation();
-                if (String.IsNullOrEmpty(logLocation))
+                if (string.IsNullOrEmpty(logLocation))
                     logLocation = GetCustomLogLocation();
-                if (String.IsNullOrEmpty(logLocation))
+                if (string.IsNullOrEmpty(logLocation))
                     logLocation = GetStandardLogLocation();
             }
 
@@ -183,29 +175,39 @@ namespace SharePointLogViewer
         {
             Type farmType = null;
 
-            if (SPUtility.SPVersion == SPVersion.SP2007)
+            if (SPVersion == SPVersion.SP2007)
                 farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
-            else if (SPUtility.SPVersion == SPVersion.SP2010)
+            else if (SPVersion == SPVersion.SP2010)
                 farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
-            else if (SPUtility.SPVersion == SPVersion.SP2013)
+            else if (SPVersion == SPVersion.SP2013)
                 farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
 
 
             if (farmType != null)
             {
                 PropertyInfo propLocalFarm = farmType.GetProperty("Local", BindingFlags.Public | BindingFlags.Static);
-                object localFarm = propLocalFarm.GetValue(null, null);
-                PropertyInfo propServers = localFarm.GetType().GetProperty("Servers", BindingFlags.Public | BindingFlags.Instance);
-                IEnumerable servers = (IEnumerable)propServers.GetValue(localFarm, null);
-                foreach (object server in servers)
+                if (propLocalFarm != null)
                 {
-                    PropertyInfo propServerName = server.GetType().GetProperty("Name", BindingFlags.Public | BindingFlags.Instance);
-                    string serverName = (string)propServerName.GetValue(server, null);
-                    yield return serverName;
+                    object localFarm = propLocalFarm.GetValue(null, null);
+                    PropertyInfo propServers = localFarm.GetType().GetProperty("Servers", BindingFlags.Public | BindingFlags.Instance);
+                    if (propServers != null)
+                    {
+                        IEnumerable servers = (IEnumerable)propServers.GetValue(localFarm, null);
+                        foreach (object server in servers)
+                        {
+                            PropertyInfo propServerName = server.GetType().GetProperty("Name", BindingFlags.Public | BindingFlags.Instance);
+                            if (propServerName != null)
+                            {
+                                string serverName = (string)propServerName.GetValue(server, null);
+                                yield return serverName;
+                            }
+                        }
+                    }
                 }
             }
         }
 
+/*
         static RegistryKey GetMOSSRegistryKey()
         {
             RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Office Server\12.0");
@@ -215,21 +217,20 @@ namespace SharePointLogViewer
                 key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Office Server\15.0");
             return key;
         }
+*/
 
         static RegistryKey GetWSSRegistryKey()
         {
-            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\15.0");
-            if (key == null)
-                key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\14.0");
-            else if (key == null)
-                key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\12.0");
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\15.0") ??
+                              Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\14.0");
+
             return key;
         }
 
         private static string GetStandardLogLocation()
         {
             string logLocation = WSSInstallPath;
-            if (logLocation != String.Empty)
+            if (logLocation != string.Empty)
                 logLocation = Path.Combine(logLocation, "logs");
 
             return logLocation;
@@ -237,7 +238,7 @@ namespace SharePointLogViewer
 
         static string GetCustomLogLocation()
         {
-            string logLocation = String.Empty;
+            string logLocation = string.Empty;
             try
             {
                 using (RegistryKey key = GetWSSRegistryKey())
@@ -252,21 +253,24 @@ namespace SharePointLogViewer
 
         private static string GetSPDiagnosticsLogLocation()
         {
-            string logLocation = String.Empty;
+            string logLocation = string.Empty;
             Type diagSvcType = null;
-            if (SPUtility.SPVersion == SPVersion.SP2007)
+            if (SPVersion == SPVersion.SP2007)
                 diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
-            else if (SPUtility.SPVersion == SPVersion.SP2010)
+            else if (SPVersion == SPVersion.SP2010)
                 diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
-            else if (SPUtility.SPVersion == SPVersion.SP2013)
+            else if (SPVersion == SPVersion.SP2013)
                 diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
 
             if (diagSvcType != null)
             {
                 PropertyInfo propLocalDiagSvc = diagSvcType.GetProperty("Local", BindingFlags.Public | BindingFlags.Static);
-                object localDiagSvc = propLocalDiagSvc.GetValue(null, null);
-                PropertyInfo property = localDiagSvc.GetType().GetProperty("LogLocation");
-                logLocation = (string)property.GetValue(localDiagSvc, null);
+                if (propLocalDiagSvc != null)
+                {
+                    object localDiagSvc = propLocalDiagSvc.GetValue(null, null);
+                    PropertyInfo property = localDiagSvc.GetType().GetProperty("LogLocation");
+                    if (property != null) logLocation = (string) property.GetValue(localDiagSvc, null);
+                }
             }
 
             return logLocation;

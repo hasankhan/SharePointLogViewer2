@@ -77,6 +77,7 @@ namespace SharePointLogViewer
             }
         }
 
+/*
         public static bool IsMOSSInstalled
         {
             get
@@ -99,6 +100,7 @@ namespace SharePointLogViewer
                 return false;
             }
         }
+*/
 
         public static string LatestLogFile
         {
@@ -137,7 +139,7 @@ namespace SharePointLogViewer
 
         public static string GetLogsLocation()
         {
-            string logLocation = String.Empty;
+            string logLocation = string.Empty;
 
             if (IsWSSInstalled)
             {
@@ -205,6 +207,7 @@ namespace SharePointLogViewer
             }
         }
 
+/*
         static RegistryKey GetMOSSRegistryKey()
         {
             RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Office Server\12.0");
@@ -214,14 +217,13 @@ namespace SharePointLogViewer
                 key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Office Server\15.0");
             return key;
         }
+*/
 
         static RegistryKey GetWSSRegistryKey()
         {
-            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\15.0");
-            if (key == null)
-                key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\14.0");
-            else if (key == null)
-                key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\12.0");
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\15.0") ??
+                              Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\14.0");
+
             return key;
         }
 

@@ -61,7 +61,7 @@ namespace SharePointLogViewer
                         return SPVersion.SP2016;
                     }
 
-                    // Check for SP2013
+                    // Check for SP2019
                     key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\17.0\WSS");
                     if (key != null)
                     {

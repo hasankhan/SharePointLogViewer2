@@ -53,6 +53,22 @@ namespace SharePointLogViewer
                         return SPVersion.SP2013;
                     }
 
+                    // Check for SP2016
+                    key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\16.0\WSS");
+                    if (key != null)
+                    {
+                        key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\16.0");
+                        return SPVersion.SP2016;
+                    }
+
+                    // Check for SP2019
+                    key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\17.0\WSS");
+                    if (key != null)
+                    {
+                        key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\17.0");
+                        return SPVersion.SP2019;
+                    }
+
                 }
                 catch (SecurityException) { }
                 return SPVersion.Unknown;
@@ -189,6 +205,10 @@ namespace SharePointLogViewer
                 farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
             else if (SPUtility.SPVersion == SPVersion.SP2013)
                 farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
+            else if (SPUtility.SPVersion == SPVersion.SP2016)
+                farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
+            else if (SPUtility.SPVersion == SPVersion.SP2019)
+                farmType = Type.GetType("Microsoft.SharePoint.Administration.SPFarm, Microsoft.SharePoint, Version=17.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
 
 
             if (farmType != null)
@@ -213,13 +233,22 @@ namespace SharePointLogViewer
                 key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Office Server\14.0");
             else if (key == null)
                 key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Office Server\15.0");
+            else if (key == null)
+                key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Office Server\16.0");
+            else if (key == null)
+                key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Office Server\17.0");
+
             return key;
         }
 
         static RegistryKey GetWSSRegistryKey()
         {
-            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\15.0");
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\17.0");
             if (key == null)
+                key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\16.0");
+            else if (key == null)
+                key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\15.0");
+            else if (key == null)
                 key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\14.0");
             else if (key == null)
                 key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\12.0");
@@ -260,6 +289,11 @@ namespace SharePointLogViewer
                 diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
             else if (SPUtility.SPVersion == SPVersion.SP2013)
                 diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
+            else if (SPUtility.SPVersion == SPVersion.SP2016)
+                diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=16.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
+            else if (SPUtility.SPVersion == SPVersion.SP2019)
+                diagSvcType = Type.GetType("Microsoft.SharePoint.Administration.SPDiagnosticsService, Microsoft.SharePoint, Version=17.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c");
+
 
             if (diagSvcType != null)
             {
